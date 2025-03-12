@@ -1,9 +1,8 @@
 {
     "sections": {
-        "section-a": "section-a",
-        "section-b": "section-b",
-        "section-c": "section-c",
-        "section-d": "section-d",
+        "template-a": {"type": "section-a"},
+        "template-b": {"type":"section-b"},
+        "template-c": {"type":"section-c"},
     },
-    "order": ["section-a","section-b","section-c","section-d"]
+    "order": ["template-a", "template-b", "template-c"]
 }

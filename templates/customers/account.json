@@ -1,8 +1,0 @@
-{
-    "sections": {
-        "template": {
-            "type": "account-page"
-        }
-    },
-    "order": ["template"]
-}

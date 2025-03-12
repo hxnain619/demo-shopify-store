@@ -1,0 +1,194 @@
+<div class="max-w-5xl mx-auto my-4 p-4">
+  <h1 class="mx-auto my-0 text-center max-w-md text-custom-lg leading-[120%]">
+    {{ section.settings.heading | default: 'What makes us different makes them stronger' }}
+  </h1>
+
+  <div class="flex flex-col md:flex-row gap-8 my-14 justify-between items-center">
+    <!-- Left Column -->
+    <div class="flex flex-col gap-10">
+      <div class="flex gap-4">
+        <div>
+          <img
+            height="auto"
+            width="auto"
+            src="{% if section.settings.food_icon != blank %}{{ section.settings.food_icon | img_url: 'medium' }}{% else %}{{ 'food-icon.png' | asset_url }}{% endif %}"
+            class="!max-w-100 w-auto h-12"
+          >
+        </div>
+        <div>
+          <h1 class="text-custom-md">{{ section.settings.food_title | default: 'Real Food' }}</h1>
+          <p class="text-custom-sm text-[#424153]">
+            {{ section.settings.food_description | default: 'Wholesome recipes for dogs with real meat and veggies.' }}
+          </p>
+        </div>
+      </div>
+
+      <div class="flex gap-4">
+        <div>
+          <img
+            height="auto"
+            width="auto"
+            src="{% if section.settings.ingredient_icon != blank %}{{ section.settings.ingredient_icon | img_url: 'medium' }}{% else %}{{ 'pet-bowl-icon.png' | asset_url }}{% endif %}"
+            class="!max-w-100 w-auto h-12"
+          >
+        </div>
+        <div>
+          <h1 class="text-custom-md">{{ section.settings.ingredient_title | default: 'Premium Ingredient' }}</h1>
+          <p class="text-custom-sm text-[#424153]">
+            {{
+              section.settings.ingredient_description
+              | default: 'Elevating pet care with unmatched safety and quality.'
+            }}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Center Image -->
+    <div class="min-w-[370px]">
+      <img
+        height="auto"
+        width="auto"
+        src="{% if section.settings.main_image != blank %}{{ section.settings.main_image | img_url: 'large' }}{% else %}{{ 'img-1.png' | asset_url }}{% endif %}"
+        class="w-full h-auto"
+      >
+    </div>
+
+    <!-- Right Column -->
+    <div class="flex flex-col gap-10">
+      <div class="flex gap-4">
+        <div>
+          <img
+            height="auto"
+            width="auto"
+            src="{% if section.settings.fresh_icon != blank %}{{ section.settings.fresh_icon | img_url: 'medium' }}{% else %}{{ 'pet-food-icon.png' | asset_url }}{% endif %}"
+            class="!max-w-100 w-auto h-12"
+          >
+        </div>
+        <div>
+          <h1 class="text-custom-md">{{ section.settings.fresh_title | default: 'Made Fresh' }}</h1>
+          <p class="text-custom-sm text-[#424153]">
+            {{
+              section.settings.fresh_description
+              | default: 'We prioritize maintaining the integrity of whole foods and nutrition.'
+            }}
+          </p>
+        </div>
+      </div>
+
+      <div class="flex gap-4">
+        <div>
+          <img
+            height="auto"
+            width="auto"
+            src="{% if section.settings.vet_icon != blank %}{{ section.settings.vet_icon | img_url: 'medium' }}{% else %}{{ 'vet-icon.png' | asset_url }}{% endif %}"
+            class="!max-w-100 w-auto h-12"
+          >
+        </div>
+        <div>
+          <h1 class="text-custom-md">{{ section.settings.vet_title | default: 'Vet Developed' }}</h1>
+          <p class="text-custom-sm text-[#424153]">
+            {{
+              section.settings.vet_description
+              | default: 'We raise the bar for dog nutrition, surpassing industry expectations.'
+            }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% render 'checkout-popup' %}
+</div>
+
+{% schema %}
+{
+  "name": "Custom Section",
+  "settings": [
+    {
+      "id": "heading",
+      "type": "text",
+      "label": "Heading",
+      "default": "What makes us different makes them stronger"
+    },
+    {
+      "id": "food_icon",
+      "type": "image_picker",
+      "label": "Food Icon"
+    },
+    {
+      "id": "food_title",
+      "type": "text",
+      "label": "Food Title",
+      "default": "Real Food"
+    },
+    {
+      "id": "food_description",
+      "type": "textarea",
+      "label": "Food Description",
+      "default": "Wholesome recipes for dogs with real meat and veggies."
+    },
+    {
+      "id": "ingredient_icon",
+      "type": "image_picker",
+      "label": "Ingredient Icon"
+    },
+    {
+      "id": "ingredient_title",
+      "type": "text",
+      "label": "Ingredient Title",
+      "default": "Premium Ingredient"
+    },
+    {
+      "id": "ingredient_description",
+      "type": "textarea",
+      "label": "Ingredient Description",
+      "default": "Elevating pet care with unmatched safety and quality."
+    },
+    {
+      "id": "main_image",
+      "type": "image_picker",
+      "label": "Main Center Image"
+    },
+    {
+      "id": "fresh_icon",
+      "type": "image_picker",
+      "label": "Fresh Icon"
+    },
+    {
+      "id": "fresh_title",
+      "type": "text",
+      "label": "Fresh Title",
+      "default": "Made Fresh"
+    },
+    {
+      "id": "fresh_description",
+      "type": "textarea",
+      "label": "Fresh Description",
+      "default": "We prioritize maintaining the integrity of whole foods and nutrition."
+    },
+    {
+      "id": "vet_icon",
+      "type": "image_picker",
+      "label": "Vet Icon"
+    },
+    {
+      "id": "vet_title",
+      "type": "text",
+      "label": "Vet Title",
+      "default": "Vet Developed"
+    },
+    {
+      "id": "vet_description",
+      "type": "textarea",
+      "label": "Vet Description",
+      "default": "We raise the bar for dog nutrition, surpassing industry expectations."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Section"
+    }
+  ]
+}
+{% endschema %}

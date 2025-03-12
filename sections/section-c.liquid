@@ -1,0 +1,95 @@
+<div class="max-w-5xl mx-auto my-4 p-4">
+  <div class="flex flex-col md:flex-row">
+    <div class="rounded-md w-full md:w-2/5">
+      <img
+        height="auto"
+        width="auto"
+        class="max-h-[480px] w-full h-full"
+        src="{% if section.settings.image_1 != blank %}{{ section.settings.image_1 | img_url: 'medium' }}{% else %}{{ 'img-3.png' | asset_url }}{% endif %}"
+      >
+    </div>
+    <div class="flex flex-col md:px-8 items-center justify-center w-full md:w-3/5">
+      <h1 class="text-custom-lg leading-[120%]">
+        Improve overall gastrointestinal health for better nutrient absorption
+      </h1>
+      <p class="text-custom-sm">
+        Through rigorous scientific studies and consultations with veterinarians, we have created a breakthrough formula
+        exclusively tailored to combat the health challenges prevalent in dogs. A staggering 91% of our customers have
+        reported significant improvements in their dogs' health after incorporating our product into their diet.
+      </p>
+    </div>
+  </div>
+  <br>
+  <div class="flex flex-col-reverse md:flex-row">
+    <div class="flex flex-col md:px-8 items-center justify-center w-full md:w-3/5">
+      <h1 class="text-custom-lg leading-[120%]">
+        Improve overall gastrointestinal health for better nutrient absorption
+      </h1>
+      <p class="text-custom-sm">
+        Through rigorous scientific studies and consultations with veterinarians, we have created a breakthrough formula
+        exclusively tailored to combat the health challenges prevalent in dogs. A staggering 91% of our customers have
+        reported significant improvements in their dogs' health after incorporating our product into their diet.
+      </p>
+    </div>
+    <div class="rounded-md w-full md:w-2/5">
+      <img
+        height="auto"
+        width="auto"
+        class="max-h-[480px] w-full h-full"
+        src="{% if section.settings.image_2 != blank %}{{ section.settings.image_2 | img_url: 'medium' }}{% else %}{{ 'img-4.png' | asset_url }}{% endif %}"
+      >
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Health Section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "First Image",
+      "info": "Recommended size: 480x480px"
+    },
+    {
+      "type": "text",
+      "id": "heading_1",
+      "label": "First Heading",
+      "default": "Improve overall gastrointestinal health for better nutrient absorption"
+    },
+    {
+      "type": "textarea",
+      "id": "description_1",
+      "label": "First Description",
+      "default": "Through rigorous scientific studies and consultations with veterinarians, we have created a breakthrough formula exclusively tailored to combat the health challenges prevalent in dogs. A staggering 91% of our customers have reported significant improvements in their dogs' health after incorporating our product into their diet."
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Second Image",
+      "info": "Recommended size: 480x480px"
+    },
+    {
+      "type": "text",
+      "id": "heading_2",
+      "label": "Second Heading",
+      "default": "Improve overall gastrointestinal health for better nutrient absorption"
+    },
+    {
+      "type": "textarea",
+      "id": "description_2",
+      "label": "Second Description",
+      "default": "Through rigorous scientific studies and consultations with veterinarians, we have created a breakthrough formula exclusively tailored to combat the health challenges prevalent in dogs. A staggering 91% of our customers have reported significant improvements in their dogs' health after incorporating our product into their diet."
+    }
+  ],
+  "blocks": [],
+  "presets": [
+    {
+      "name": "Gastrointestinal Health Section",
+      "category": "Content",
+      "settings": {}
+    }
+  ]
+}
+{% endschema %}
