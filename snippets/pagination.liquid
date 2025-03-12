@@ -1,0 +1,39 @@
+{% if pagination.pages > 1 %}
+  <nav role="navigation" class="flex justify-center items-center gap-0 my-8 max-w-1/4 mx-auto">
+    {% if pagination.previous %}
+      <a
+        href="{{ pagination.previous.url }}"
+        class="text-black hover:bg-black hover:text-white p-3 mx-1 font-medium shadow-md rounded-full"
+      >
+        {% render 'chevron-left' %}
+      </a>
+    {% endif %}
+    <div class="mx-auto text-bold text-md">
+      {% for part in pagination.parts %}
+        {% if part.is_link %}
+          <a
+            class="p-3 px-4 m-0 rounded-sm font-medium shadow-md bg-white text-black text-sm hover:bg-black hover:text-white"
+            href="{{ part.url }}"
+          >
+            {{- part.title -}}
+          </a>
+        {% else %}
+          <a
+            class="text-white bg-black p-3 px-4 m-0 rounded-sm font-medium shadow-md text-sm"
+            href="{{ part.url }}"
+          >
+            {{- part.title -}}
+          </a>
+        {% endif %}
+      {% endfor %}
+    </div>
+    {% if pagination.next %}
+      <a
+        href="{{ pagination.next.url }}"
+        class="text-black hover:bg-black hover:text-white p-3 mx-1 font-medium shadow-md rounded-full"
+      >
+        {% render 'chevron-right' %}
+      </a>
+    {% endif %}
+  </nav>
+{% endif %}

@@ -1,0 +1,23 @@
+<div class="my-4 max-w-5xl mx-auto">
+  <h1 class="text-center text-3xl font-bold underline">{{ section.settings.featured_title }}</h1>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-3 my-4">
+    {% for product in section.settings.featured_collection.products limit: 3 %}
+      {% render 'product-card', _product: product %}
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Featured collection",
+  "settings": [
+    { "type": "text", "id": "featured_title", "label": "Featured Collection", "default": "Featured Collection" },
+    { "type": "collection", "id": "featured_collection", "label": "Collection Id" }
+  ],
+  "presets": [
+    {
+      "name": "Featured Collection"
+    }
+  ]
+}
+{% endschema %}

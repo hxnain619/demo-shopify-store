@@ -1,0 +1,150 @@
+<div class="max-w-6xl mx-auto px-4 py-12" x-data="{ address_new: false }" x-cloak>
+  <div class="flex flex-col md:flex-row items-center justify-between my-5 gap-4">
+    <h1 class="text-2xl font-bold text-gray-700">Addresses</h1>
+    <button
+      x-on:click="address_new = true"
+      type="button"
+      class="text-white font-medium bg-black border hover:bg-white hover:text-black px-6 py-2"
+    >
+      Create new address
+    </button>
+    <a href="{{ routes.account_url }}" class="text-black hover:text-gray-800 font-medium underline text-sm"
+      >Back to account</a
+    >
+  </div>
+  {% render 'address-modal',
+    modal_id: 'new',
+    modal_title: 'Create Address',
+    address_customer_id: customer.new_address,
+    button_title: 'Create address'
+  %}
+
+  <div>
+    {% paginate customer.addresses by 10 %}
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-12 p-4 md:p-12">
+        {% for address in customer.addresses %}
+          <div x-data="{ address_{{ address.id }}: false }" x-cloak>
+            <div class="relative flex flex-col text-center border p-2 min-h-full">
+              {% if address == customer.default_address %}
+                <span class="text-xs font-medium text-white bg-purple-500 px-4 py-2">Default</span>
+              {% else %}
+                <span class="text-xs font-medium text-white px-4 py-2">&nbsp;</span>
+              {% endif %}
+
+              <div class="my-8 h-full min-h-30 text-left overflow-hidden pl-3 min-h-38">
+                {{ address | format_address | truncatewords: 50 }}
+              </div>
+
+              <div class="flex flex-row gap-2">
+                <button
+                  x-on:click="address_{{ address.id }} = true"
+                  class="w-full text-xs border bg-white text-black hover:bg-black hover:text-white font-medium py-2"
+                >
+                  Edit
+                </button>
+                <form class="w-full bg-red-500 hover:bg-red-700" method="post" action="{{ address.url }}">
+                  <input type="hidden" name="_method" value="delete">
+                  <button type="submit" class=" text-xs font-medium text-white py-2">Delete</button>
+                </form>
+              </div>
+            </div>
+            {% render 'address-modal',
+              modal_id: address.id,
+              modal_title: 'Edit Address',
+              address_customer_id: address,
+              button_title: 'Edit address'
+            %}
+          </div>
+        {% endfor %}
+      </div>
+    {% endpaginate %}
+  </div>
+</div>
+
+<script>
+  class CustomerAddress {
+    constructor() {
+      this.initCustomerAddress();
+      this.customerAddressesSelector();
+    }
+
+    initCustomerAddress() {
+      const allAddressesSelector = document.querySelectorAll('select[data-country-selector]');
+      if (allAddressesSelector.length < 1) return;
+
+      allAddressesSelector.forEach((select) => {
+        var selectedCountry = this.getSelectedCountry(select);
+
+        if (!selectedCountry) return;
+
+        var provinces = selectedCountry.dataset.provinces;
+        var arrayOfProvince = JSON.parse(provinces);
+
+        var provinceSelector = document.querySelector(`#address_province_${select.dataset.id}`);
+
+        if (arrayOfProvince.length < 1) {
+          provinceSelector.setAttribute('disabled', 'disabled');
+        } else {
+          provinceSelector.removeAttribute('disabled');
+        }
+
+        provinceSelector.innerHTML = '';
+        var options = '';
+        for (var index = 0; index < arrayOfProvince.length; index++) {
+          if (arrayOfProvince[index][0] === provinceSelector.getAttribute('value')) {
+            options += `<option value="${arrayOfProvince[index][0]}" selected>${arrayOfProvince[index][0]}</option>`;
+          } else {
+            options += `<option value="${arrayOfProvince[index][0]}">${arrayOfProvince[index][0]}</option>`;
+          }
+        }
+
+        provinceSelector.innerHTML = options;
+      });
+    }
+
+    getSelectedCountry(select) {
+      var option, selectedOption;
+      for (var index = 0; index < select.options.length; index++) {
+        option = select.options[index];
+
+        if (option.value === select.getAttribute('value')) {
+          selectedOption = option;
+          selectedOption.setAttribute('selected', 'selected');
+          break;
+        }
+      }
+
+      return selectedOption;
+    }
+
+    customerAddressesSelector() {
+      const addressesSelector = document.querySelectorAll('select[data-country-selector]');
+      if (addressesSelector.length < 1) return;
+
+      addressesSelector.forEach((select) => {
+        select.addEventListener('change', function (e) {
+          var provinces = this.options[this.selectedIndex].dataset.provinces;
+          var arrayOfProvince = JSON.parse(provinces);
+
+          var provinceSelector = document.querySelector(`#address_province_${this.dataset.id}`);
+
+          if (arrayOfProvince.length < 1) {
+            provinceSelector.setAttribute('disabled', 'disabled');
+          } else {
+            provinceSelector.removeAttribute('disabled');
+          }
+
+          provinceSelector.innerHTML = '';
+          var options = '';
+          for (var index = 0; index < arrayOfProvince.length; index++) {
+            options += `<option value="${arrayOfProvince[index][0]}">${arrayOfProvince[index][0]}</option>`;
+          }
+
+          provinceSelector.innerHTML = options;
+        });
+      });
+    }
+  }
+
+  const customerAddress = new CustomerAddress();
+</script>

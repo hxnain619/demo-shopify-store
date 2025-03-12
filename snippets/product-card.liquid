@@ -1,0 +1,39 @@
+<form action="{{ routes.cart_add_url }}" novalidate class="w-full py-6 px-3">
+  <div class="bg-white shadow-lg rounded-lg overflow-hidden shadow-md">
+    <a href="{{ _product.url }}">
+      {% if _product.featured_image %}
+        <div class="h-80 overflow-hidden">
+          <img
+            height="auto"
+            width="auto"
+            class="w-full h-full object-cover transition duration-500 ease-in-out hover:scale-105 transform"
+            src="{{ _product.featured_image | img_url: 'medium' }}"
+            alt="{{ _product.featured_image.alt }}"
+          >
+        </div>
+
+      {% else %}
+        {{ '_product-1' | placeholder_svg_tag: 'w-full h-full object-cover bg-gray-100' }}
+      {% endif %}
+    </a>
+
+    <div class="flex flex-col p-4 h-35">
+      <span class="text-sm text-gray-400">{{ _product.vendor }}</span>
+      <a href="{{ _product.url }}" class="text-gray-700 uppercase font-medium h-20">
+        {{- _product.title -}}
+      </a>
+
+      <div class="flex items-center justify-between">
+        <p class="text-gray-500">{{ _product.price | money }}</p>
+        <input type="hidden" name="id" value="{{ _product.variants.first.id }}">
+        <input min="1" type="number" id="quantity" name="quantity" value="1" class="hidden">
+        <button
+          type="submit"
+          class="bg-black text-white border hover:bg-white hover:text-black p-2 decoration-none rounded-full shadow-md"
+        >
+          {% render 'icon-shopping-bag', class: 'h-4 w-4' %}
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

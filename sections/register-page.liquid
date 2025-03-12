@@ -1,0 +1,71 @@
+<div class="h-full max-w-2xl mx-auto my-8 p-4 space-y-8">
+  <h1 class="font-bold text-3xl text-center my-6">Register yourself</h1>
+  {% form 'create_customer' %}
+    <div class="flex flex-col items-center gap-4">
+      {% if form.errors %}
+        <div class="my-4 text-red-500 bg-red-100 shadow-md p-4 w-1/2" role="alert">
+          <strong>Errors!</strong>
+          <p class="block sm:inline">{{ form.errors | default_errors }}</p>
+        </div>
+      {% endif %}
+      <div class="flex flex-col md:flex-row gap-2 w-full">
+        <div class="flex flex-col w-full">
+          <label for="first_name" class="text-base font-medium"> First Name</label>
+          <input
+            class="border px-3 py-4"
+            name="customer[first_name]"
+            id="first_name"
+            type="text"
+            autocomplete="first_name"
+            placeholder="Enter First Name"
+          >
+        </div>
+        <div class="flex flex-col w-full">
+          <label for="last_name" class="text-base font-medium"> Last Name</label>
+          <input
+            class="border px-3 py-4"
+            name="customer[last_name]"
+            id="last_name"
+            type="text"
+            autocomplete="last_name"
+            placeholder="Enter Last Name"
+          >
+        </div>
+      </div>
+      <div class="flex flex-col my-2 w-full">
+        <label for="email_address" class="text-base font-medium"> Email Address</label>
+        <input
+          class="border px-3 py-4"
+          name="customer[email]"
+          id="email_address"
+          type="email"
+          autocomplete="email"
+          placeholder="Enter Email"
+        >
+      </div>
+      <div class="flex flex-col my-2 w-full">
+        <label for="password" class="text-base font-medium"> Password</label>
+        <input
+          class="border px-3 py-4"
+          name="customer[password]"
+          type="password"
+          id="password"
+          placeholder="Enter Password"
+        >
+      </div>
+      <div class="my-2 w-full">
+        <button
+          type="submit"
+          class="border-2 border-black bg-black text-white font-medium text-center hover:bg-white hover:text-black p-4 w-full cursor-pointer"
+        >
+          Register
+        </button>
+      </div>
+      <a
+        href="{{routes.account_login_url}}"
+        class="text-gray-400 hover:text-gray-500 text-base text-center hover:underline cursor-pointer cursor-pointer"
+        >Back to Login</a
+      >
+    </div>
+  {% endform %}
+</div>

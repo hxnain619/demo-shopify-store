@@ -1,0 +1,8 @@
+{
+    "sections": {
+        "template": {
+            "type": "activate-user-account-page"
+        }
+    },
+    "order": ["template"]
+}
